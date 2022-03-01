@@ -50,8 +50,7 @@ function getMatchKey(members) {
 function getMatchInfo(matchKeys) {
   let matchInfo = [];
   for(let matchKey of matchKeys) {
-    MATCHINFO_URL = MATCHINFO_URL.replace('{matchid}', `${matchKey}`);
-    matchInfo.push(requestFifa(MATCHINFO_URL)); 
+    matchInfo.push(requestFifa(MATCHINFO_URL.replace('{matchid}', `${matchKey}`))); 
   }
 
   return matchInfo;
@@ -63,6 +62,7 @@ function exeMatchInfo(members) {
   let matchKeys = getMatchKey(members);
   let matchInfo = getMatchInfo(matchKeys);
 
+  console.log(matchInfo);
   return matchInfo;
 }
 

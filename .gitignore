@@ -1,2 +1,8 @@
 .cache/
 dist/
+node_modules/.package-lock.json
+node_modules/member.js/LICENSE
+node_modules/member.js/README.md
+node_modules/member.js/member.js
+package-lock.json
+package.json
