@@ -10,7 +10,19 @@ let members = [];
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  members = [{nickname: user1.value}, {nickname: user2.value}];
+  members = [{
+    nickname: user1.value,
+    winCount: 0,
+    drawCount: 0,
+    loseCount: 0,
+    fqCount: 0
+  }, {
+    nickname: user2.value,
+    winCount: 0,
+    drawCount: 0,
+    loseCount: 0,
+    fqCount: 0
+  }];
   let matchInfo = exeMatchInfo(members);
-  renderResult(matchInfo);
+  renderResult(members, matchInfo);
 });
