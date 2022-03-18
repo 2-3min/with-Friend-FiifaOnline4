@@ -40,7 +40,7 @@ function renderResult(members, matches) {
       <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
           <!--card-->
           <div class="flex justify-center my-4">
-            <div class="max-w-sm rounded overflow-hidden shadow-lg bg-slate-500 flex">
+            <div class="max-w-sm rounded overflow-hidden shadow-lg bg-slate-500 flex" style="width: 280px">
               <div class="flex-auto px-6 py-4">
                 <div class="font-bold text-xl text-white mb-2">${members[0].nickname}</div>
                 <div class="flex-auto font-bold text-xl text-lime-300 mb-2">
@@ -53,7 +53,7 @@ function renderResult(members, matches) {
               </div>
             </div>
             <span class="italic font-bold text-xl text-lime-300 mb-2 px-4 my-8">VS</span>
-            <div class="max-w-sm rounded overflow-hidden shadow-lg bg-slate-500 flex">
+            <div class="max-w-sm rounded overflow-hidden shadow-lg bg-slate-500 flex" style="width: 280px">
               <div class="flex-auto px-6 py-4">
                 <div class="font-bold text-xl text-white mb-2">${members[1].nickname}</div>
                 <div class="flex-auto font-bold text-xl text-lime-300 mb-2">
