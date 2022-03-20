@@ -23,15 +23,9 @@ function getResult(members, matches) {
   });
 }
 
-function getRecord(members, matches) {
-
-}
-
-
-function renderResult(members, matches) {
+const renderingHeadtohead = (members, matches) => {
   getResult(members, matches);
-  console.log(members);
-  const imagePath = require('./img/fLogo.PNG');
+  const imagePath = require('../../img/fLogo.PNG');
 
   const root = document.getElementById('root');
   let template = `
@@ -109,4 +103,38 @@ function renderResult(members, matches) {
   root.innerHTML = template;
 }
 
-export {renderResult};
+const rederingHistory = (members, matches) => {
+  matches.foreach(match => {
+
+  });
+}
+
+const renderingSearchForm = () => {
+  let template = 
+  `<div class="flex h-screen">
+    <div class="m-auto">
+      <img src="./img/fLogo.PNG"/>
+      <form id="search-form" class="flex flex-col">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2">
+            User1
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-4 text-gray-700 leading-tight hover:border-2 hover:border-lime-400" id="user1" type="text" placeholder="짝사앙" value="짝사앙">
+        </div>
+        <div class="mb-6">
+          <label class="block text-gray-700 text-sm font-bold mb-2">
+            User2
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-4 text-gray-700 mb-3 leading-tight hover:border-2  hover:border-lime-400" id="user2" type="text" placeholder="망겜히히" value="망겜히히">
+        </div>
+        <input class="bg-sky-600 hover:bg-lime-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" value="enter!">
+        </input>
+      </form>
+    </div>
+  </div>`
+
+  root.innerHTML = template;
+}
+
+
+export {renderingSearchForm, renderingHeadtohead, rederingHistory};
