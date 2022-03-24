@@ -1,4 +1,4 @@
-import {exeMatchInfo, getAccessKey} from './fo4api/fo4api.js';
+import {exeMatches} from './api/api.js';
 import {renderingSearchForm, renderingHeadtohead, renderingHistory} from './rendering/render.js';
 import 'regenerator-runtime/runtime';
 
@@ -13,20 +13,14 @@ form.addEventListener("submit", (e) => {
   let members = [{
     nickname: user1.value,
     winCount: 0,
-    drawCount: 0,
-    fqCount: 0
   }, {
     nickname: user2.value,
     winCount: 0,
-    drawCount: 0,
-    fqCount: 0
   }];
 
-  const accessKey = getAccessKey("짝사앙");
-  console.log(accessKey);
+  exeMatches(members).then(matches => {
+    renderingHeadtohead(members, matches);
+  });
 
-  // let matches = exeMatchInfo(members);
-  // console.log(matches);
-  // renderingHeadtohead(members, matches);
   // renderingHistory(members, matches);
 });

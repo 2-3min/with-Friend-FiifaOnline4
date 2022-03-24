@@ -1,27 +1,24 @@
 //상대전적 계산하는 함수
-function getResult(members, matches) {
-  const [user1, user2] = members;
+// const getResult = async(members, pMatches) => {
+//   const [user1, user2] = members;
+//   let user1_winCount = 0;
+//   let user2_winCount = 0;
 
-  matches.forEach(match => {
-    if(match.matchInfo[0].matchDetail.matchResult === "몰수패" || match.matchInfo[0].matchDetail.matchResult === "몰수승") {
-      console.log("몰수");
-      return;
-    }
 
-    if(match.matchInfo[0].matchDetail.matchResult === "무") {
-      user1.drawCount += 1;
-      user2.drawCount += 1;
-      return;
-    }
+//   const result = await pMatches.forEach(pMatch => {
+//     pMatch.then(match => {
+//       if(match.matchInfo[0].nickname === user1.nickname) {
+//         console.log("1");
+//         match.matchInfo[0].matchDetail.matchResult === "승" ? user1_winCount += 1 : user2_winCount += 1;
+//       } else if(match.matchInfo[0].nickname !== user1.nickname) {
+//         console.log("2");
+//         match.matchInfo[0].matchDetail.matchResult === "승" ? user2_winCount += 1 : user1_winCount += 1;
+//       }
+//     })
+//   });
 
-    if(match.matchInfo[0].nickname === user1.nickname) {
-      match.matchInfo[0].matchDetail.matchResult === "승" ? user1.winCount += 1 : user2.winCount += 1;
-    } else if(match.matchInfo[0].nickname !== user1.nickname) {
-      match.matchInfo[0].matchDetail.matchResult === "승" ? user2.winCount += 1 : user1.winCount += 1;
-    }
-    
-  });
-}
+//   console.log("3");
+// }
 
 const renderingHeadtohead = (members, matches) => {
   getResult(members, matches);
@@ -70,9 +67,6 @@ const renderingHeadtohead = (members, matches) => {
                               ${members[0].nickname} WINS
                           </th>
                           <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                              DRAWS
-                          </th>
-                          <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                               ${members[1].nickname} WINS
                           </th>
                       </tr>
@@ -85,9 +79,6 @@ const renderingHeadtohead = (members, matches) => {
                           </td>
                           <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                           ${members[0].winCount}
-                          </td>
-                          <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                          ${members[0].drawCount}
                           </td>
                           <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                           ${members[1].winCount}
