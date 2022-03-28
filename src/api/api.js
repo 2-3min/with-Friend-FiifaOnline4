@@ -12,6 +12,7 @@ const requestURL = url => {
     return response.json();
   })
 
+
   return prom;
 }
 
@@ -76,39 +77,30 @@ const getMatchesInfo = matchingKeys => {
 }
 
 //두 유저의 승수를 계산하는 함수
-const getResult = (firstInputNickname, pMatches) => {
-  let winCount = 0;
+// const getResult = (firstInputNickname, pMatches) => {
 
-  pMatches.forEach(pMatch => {
-    pMatch.then(match => {
-      const [{nickname, matchDetail: {matchResult}}] = match.matchInfo;
+//   const winCount = pMatches.reduce((count, currentValue, currentIndex, pMatch) => {
+//     return pMatch.then(match => {
+//       const [{nickname, matchDetail: {matchResult}}] = match.matchInfo;
 
-      if(nickname === firstInputNickname && matchResult === "승") winCount++;  
-      if(nickname !== firstInputNickname && matchResult === "패") winCount++;
+//       if(nickname === firstInputNickname && matchResult === "승") count++;
+//       if(nickname !== firstInputNickname && matchResult === "패") count++;
+//       // const result = (
+//       //   (nickname === firstInputNickname && matchResult === "승") || 
+//       //   (nickname !== firstInputNickname && matchResult === "패") ? "승" : "패"
+//       // );
 
-    });
-  });
+//       return winCount;
+//     });
+//   }, 0);
 
-  console.log(winCount);
+//   console.log(winCount);
 
-  
-  // for (const pMatch of pMatches) {
-  //   const match = await pMatch;
-  //   const [user1, ] = match.matchInfo;
-
-  //   if(user1.nickname === members[0].nickname) {
-  //     user1.matchDetail.matchResult === "승" ? members[0].winCount += 1 : members[1].winCount += 1; 
-  //   }
-  //   if (user1.nickname !== members[0].nickname) {
-  //     user1.matchDetail.matchResult === "승" ? members[1].winCount += 1 : members[0].winCount += 1;
-  //   }
-  // }
-
-}
+// }
 
 // //매치정보를 리턴하는 함수(app.js에서 사용)
 const exeMatches = inputNickname => {
-  const result = getMatchKeys(getUsersInfo(members))
+  const result = getMatchKeys(getUsersInfo(inputNickname))
     .then(matchKeys => getMatchesInfo(matchKeys))
     .then(pMatches => getResult(inputNickname[0], pMatches))
 
