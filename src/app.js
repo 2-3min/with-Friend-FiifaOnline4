@@ -18,9 +18,7 @@ form.addEventListener("submit", (e) => {
     winCount: 0,
   }];
 
-  exeMatches(members).then(matches => {
-    renderingHeadtohead(members, matches);
-  });
 
-  // renderingHistory(members, matches);
+  exeMatches(members);
+
 });

@@ -1,30 +1,10 @@
-//상대전적 계산하는 함수
-// const getResult = async(members, pMatches) => {
-//   const [user1, user2] = members;
-//   let user1_winCount = 0;
-//   let user2_winCount = 0;
 
-
-//   const result = await pMatches.forEach(pMatch => {
-//     pMatch.then(match => {
-//       if(match.matchInfo[0].nickname === user1.nickname) {
-//         console.log("1");
-//         match.matchInfo[0].matchDetail.matchResult === "승" ? user1_winCount += 1 : user2_winCount += 1;
-//       } else if(match.matchInfo[0].nickname !== user1.nickname) {
-//         console.log("2");
-//         match.matchInfo[0].matchDetail.matchResult === "승" ? user2_winCount += 1 : user1_winCount += 1;
-//       }
-//     })
-//   });
-
-//   console.log("3");
-// }
-
-const renderingHeadtohead = (members, matches) => {
-  getResult(members, matches);
+const renderingHeadtohead = members => {
+  const [user1, user2] = members;
   const imagePath = require('../../img/fLogo.PNG');
 
   const root = document.getElementById('root');
+  console.log(members);
   let template = `
   <div class="flex flex-col">
     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -33,10 +13,10 @@ const renderingHeadtohead = (members, matches) => {
           <div class="flex justify-center my-4">
             <div class="max-w-sm rounded overflow-hidden shadow-lg bg-slate-500 flex" style="width: 280px">
               <div class="flex-auto px-6 py-4">
-                <div class="font-bold text-xl text-white mb-2">${members[0].nickname}</div>
+                <div class="font-bold text-xl text-white mb-2">${user1.nickname}</div>
                 <div class="flex-auto font-bold text-xl text-lime-300 mb-2">
                   <span class="italic font-bold text-xl text-lime-300 mb-2">Lv.</span>
-                  <span class="font-bold text-xl text-white mb-2">${members[0].level}</span>
+                  <span class="font-bold text-xl text-white mb-2">${user1.level}</span>
                 </div>
               </div>
               <div class="flex-auto px-4 py-4">
@@ -46,10 +26,10 @@ const renderingHeadtohead = (members, matches) => {
             <span class="italic font-bold text-xl text-lime-300 mb-2 px-4 my-8">VS</span>
             <div class="max-w-sm rounded overflow-hidden shadow-lg bg-slate-500 flex" style="width: 280px">
               <div class="flex-auto px-6 py-4">
-                <div class="font-bold text-xl text-white mb-2">${members[1].nickname}</div>
+                <div class="font-bold text-xl text-white mb-2">${user2.nickname}</div>
                 <div class="flex-auto font-bold text-xl text-lime-300 mb-2">
                   <span class="italic font-bold text-xl text-lime-300 mb-2">Lv.</span>
-                  <span class="font-bold text-xl text-white mb-2">${members[1].level}</span>
+                  <span class="font-bold text-xl text-white mb-2">${user2.level}</span>
                 </div>
               </div>
               <div class="flex-auto px-4 py-4">
@@ -64,10 +44,10 @@ const renderingHeadtohead = (members, matches) => {
                       <tr>
                           <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"></th>
                           <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                              ${members[0].nickname} WINS
+                              ${user1.nickname} WINS
                           </th>
                           <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                              ${members[1].nickname} WINS
+                              ${user2.nickname} WINS
                           </th>
                       </tr>
                   </thead>
@@ -78,10 +58,10 @@ const renderingHeadtohead = (members, matches) => {
                               Special Match 1 ON 1
                           </td>
                           <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                          ${members[0].winCount}
+                          ${user1.winCount}
                           </td>
                           <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                          ${members[1].winCount}
+                          ${user2.winCount}
                           </td>
                       </tr>
                   </tbody>

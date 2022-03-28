@@ -31,7 +31,7 @@ const getUsersInfo = inputNickname => {
 }
 
 //각 유저의 100개의 matchKey중 일치하는 matchKey를 추출하는 함수
-const getMatchingKeys = (matchKeys) => {
+const getMatchingKeys = matchKeys => {
   const [puser1_MatchKey, puser2_MatchKey] = matchKeys;
 
   const pmatchingKeys = puser1_MatchKey.then(user1_MatchKey => {
@@ -58,25 +58,62 @@ const getMatchKeys = usersInfo => {
     })
   });
 
+  console.log("getMatchKeys 끝", matchKeys);
   return getMatchingKeys(matchKeys);
 }
 
 
 //매치키를 이용하여 매치 정보를 리턴하는 함수
-const getMatchesInfo = (matchingKeys) => {
+const getMatchesInfo = matchingKeys => {
   const matchesInfo = matchingKeys.map(matchingKey => {
     const url = MATCHINFO_URL.replace('{matchid}', `${matchingKey}`);
     const matchInfo = requestURL(url);
-    return matchInfo; 
+
+    return matchInfo
   });
 
   return matchesInfo;
 }
 
-// //매치정보를 리턴하는 함수(app.js에서 사용)
-const exeMatches = async(members) => {
-  const matchKeys = await getMatchKeys(getUsersInfo(members));
-  return getMatchesInfo(matchKeys);
+//두 유저의 승수를 계산하는 함수
+const getResult = (firstInputNickname, pMatches) => {
+  let winCount = 0;
+
+  pMatches.forEach(pMatch => {
+    pMatch.then(match => {
+      const [{nickname, matchDetail: {matchResult}}] = match.matchInfo;
+
+      if(nickname === firstInputNickname && matchResult === "승") winCount++;  
+      if(nickname !== firstInputNickname && matchResult === "패") winCount++;
+
+    });
+  });
+
+  console.log(winCount);
+
+  
+  // for (const pMatch of pMatches) {
+  //   const match = await pMatch;
+  //   const [user1, ] = match.matchInfo;
+
+  //   if(user1.nickname === members[0].nickname) {
+  //     user1.matchDetail.matchResult === "승" ? members[0].winCount += 1 : members[1].winCount += 1; 
+  //   }
+  //   if (user1.nickname !== members[0].nickname) {
+  //     user1.matchDetail.matchResult === "승" ? members[1].winCount += 1 : members[0].winCount += 1;
+  //   }
+  // }
+
 }
+
+// //매치정보를 리턴하는 함수(app.js에서 사용)
+const exeMatches = inputNickname => {
+  const result = getMatchKeys(getUsersInfo(members))
+    .then(matchKeys => getMatchesInfo(matchKeys))
+    .then(pMatches => getResult(inputNickname[0], pMatches))
+
+  return result;
+}
+
 
 export {exeMatches};
