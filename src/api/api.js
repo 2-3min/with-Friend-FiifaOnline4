@@ -18,12 +18,10 @@ const requestURL = url => {
 
 //닉네임으로 유저정보와 accessId를 가져오는 함수
 const getUsersInfo = inputNickname => {
-  const usersInfo = inputNickname.map(async(inputNickname) => {
+  const usersInfo = inputNickname.map(inputNickname => {
 
     const url = USERINFO_URL.replace('{nickname}', `${inputNickname.nickname}`);
-    const user = await requestURL(url);
-
-    inputNickname.level = user.level; //전역 객체인 member에 level property 추가
+    const user = requestURL(url);
 
     return user;
   });
@@ -77,26 +75,39 @@ const getMatchesInfo = matchingKeys => {
 }
 
 //두 유저의 승수를 계산하는 함수
-// const getResult = (firstInputNickname, pMatches) => {
+const getResult = (firstInputNickname, pMatches) => {
+  Promise.all(pMatches).then(matches => {
+    const winCount = matches.reduce((count, match) => {
 
-//   const winCount = pMatches.reduce((count, currentValue, currentIndex, pMatch) => {
-//     return pMatch.then(match => {
-//       const [{nickname, matchDetail: {matchResult}}] = match.matchInfo;
+      const [{nickname, matchDetail: {matchResult}}] = match.matchInfo;
 
-//       if(nickname === firstInputNickname && matchResult === "승") count++;
-//       if(nickname !== firstInputNickname && matchResult === "패") count++;
-//       // const result = (
-//       //   (nickname === firstInputNickname && matchResult === "승") || 
-//       //   (nickname !== firstInputNickname && matchResult === "패") ? "승" : "패"
-//       // );
+      if(nickname === firstInputNickname && matchResult === "승") count++;
+      if(nickname !== firstInputNickname && matchResult === "패") count++;
 
-//       return winCount;
-//     });
-//   }, 0);
+      return count;
+    }, 0);
 
-//   console.log(winCount);
+    return winCount;
+  });
+}
 
-// }
+  // const winCount = pMatches.reduce((count, currentValue, currentIndex, pMatch) => {
+  //   return pMatch.then(match => {
+  //     const [{nickname, matchDetail: {matchResult}}] = match.matchInfo;
+
+  //     if(nickname === firstInputNickname && matchResult === "승") count++;
+  //     if(nickname !== firstInputNickname && matchResult === "패") count++;
+  //     // const result = (
+  //     //   (nickname === firstInputNickname && matchResult === "승") || 
+  //     //   (nickname !== firstInputNickname && matchResult === "패") ? "승" : "패"
+  //     // );
+
+  //     return winCount;
+  //   });
+  // }, 0);
+
+  // console.log(winCount);
+
 
 // //매치정보를 리턴하는 함수(app.js에서 사용)
 const exeMatches = inputNickname => {
