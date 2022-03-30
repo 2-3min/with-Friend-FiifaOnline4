@@ -14,10 +14,6 @@ const renderingHeadtohead = members => {
             <div class="max-w-sm rounded overflow-hidden shadow-lg bg-slate-500 flex" style="width: 280px">
               <div class="flex-auto px-6 py-4">
                 <div class="font-bold text-xl text-white mb-2">${user1.nickname}</div>
-                <div class="flex-auto font-bold text-xl text-lime-300 mb-2">
-                  <span class="italic font-bold text-xl text-lime-300 mb-2">Lv.</span>
-                  <span class="font-bold text-xl text-white mb-2">${user1.level}</span>
-                </div>
               </div>
               <div class="flex-auto px-4 py-4">
                 <img class="w-20 h-20" src="${imagePath}">
@@ -27,10 +23,6 @@ const renderingHeadtohead = members => {
             <div class="max-w-sm rounded overflow-hidden shadow-lg bg-slate-500 flex" style="width: 280px">
               <div class="flex-auto px-6 py-4">
                 <div class="font-bold text-xl text-white mb-2">${user2.nickname}</div>
-                <div class="flex-auto font-bold text-xl text-lime-300 mb-2">
-                  <span class="italic font-bold text-xl text-lime-300 mb-2">Lv.</span>
-                  <span class="font-bold text-xl text-white mb-2">${user2.level}</span>
-                </div>
               </div>
               <div class="flex-auto px-4 py-4">
                 <img class="w-20 h-20" src="${imagePath}">

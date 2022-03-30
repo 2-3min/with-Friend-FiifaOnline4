@@ -17,10 +17,10 @@ const requestURL = url => {
 }
 
 //닉네임으로 유저정보와 accessId를 가져오는 함수
-const getUsersInfo = inputNickname => {
-  const usersInfo = inputNickname.map(inputNickname => {
+const getUsersInfo = inputNicknames => {
+  const usersInfo = inputNicknames.map(inputNickname => {
 
-    const url = USERINFO_URL.replace('{nickname}', `${inputNickname.nickname}`);
+    const url = USERINFO_URL.replace('{nickname}', `${inputNickname}`);
     const user = requestURL(url);
 
     return user;
@@ -45,7 +45,6 @@ const getMatchingKeys = matchKeys => {
   return pmatchingKeys;
 }
 
-
 //accessKey를 통해 matchKey를 가져오는 함수
 const getMatchKeys = usersInfo => {
   const matchKeys = usersInfo.map(userInfo => {
@@ -57,10 +56,8 @@ const getMatchKeys = usersInfo => {
     })
   });
 
-  console.log("getMatchKeys 끝", matchKeys);
   return getMatchingKeys(matchKeys);
 }
-
 
 //매치키를 이용하여 매치 정보를 리턴하는 함수
 const getMatchesInfo = matchingKeys => {
@@ -75,48 +72,35 @@ const getMatchesInfo = matchingKeys => {
 }
 
 //두 유저의 승수를 계산하는 함수
-const getResult = (firstInputNickname, pMatches) => {
-  Promise.all(pMatches).then(matches => {
-    const winCount = matches.reduce((count, match) => {
+const getMembers = (inputNicknames, pMatches) => {
+  const [user1, user2] = inputNicknames;
+  console.log(pMatches);
+  const member = Promise.all(pMatches).then(matches => {
 
+    const winCounting = matches.reduce((count, match) => {
       const [{nickname, matchDetail: {matchResult}}] = match.matchInfo;
 
-      if(nickname === firstInputNickname && matchResult === "승") count++;
-      if(nickname !== firstInputNickname && matchResult === "패") count++;
+      if(nickname === user1 && matchResult === "승") count++;
+      if(nickname !== user1 && matchResult === "패") count++;
 
       return count;
     }, 0);
 
-    return winCount;
+    return [
+      {nickname: user1, winCount: winCounting}, 
+      {nickname: user2, winCount: (pMatches.length - winCounting)}
+    ];
   });
+
+  return member;
 }
 
-  // const winCount = pMatches.reduce((count, currentValue, currentIndex, pMatch) => {
-  //   return pMatch.then(match => {
-  //     const [{nickname, matchDetail: {matchResult}}] = match.matchInfo;
-
-  //     if(nickname === firstInputNickname && matchResult === "승") count++;
-  //     if(nickname !== firstInputNickname && matchResult === "패") count++;
-  //     // const result = (
-  //     //   (nickname === firstInputNickname && matchResult === "승") || 
-  //     //   (nickname !== firstInputNickname && matchResult === "패") ? "승" : "패"
-  //     // );
-
-  //     return winCount;
-  //   });
-  // }, 0);
-
-  // console.log(winCount);
-
-
-// //매치정보를 리턴하는 함수(app.js에서 사용)
-const exeMatches = inputNickname => {
-  const result = getMatchKeys(getUsersInfo(inputNickname))
-    .then(matchKeys => getMatchesInfo(matchKeys))
-    .then(pMatches => getResult(inputNickname[0], pMatches))
-
-  return result;
+//매치정보를 리턴하는 함수(app.js에서 사용)
+const exeSearching = inputNicknames => {
+  return getMatchKeys(getUsersInfo(inputNicknames))
+  .then(matchKeys => getMatchesInfo(matchKeys))
+  .then(pMatches => getMembers(inputNicknames, pMatches))
 }
 
 
-export {exeMatches};
+export {exeSearching};

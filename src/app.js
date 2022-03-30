@@ -1,4 +1,4 @@
-import {exeMatches} from './api/api.js';
+import {exeSearching} from './api/api.js';
 import {renderingSearchForm, renderingHeadtohead, renderingHistory} from './rendering/render.js';
 import 'regenerator-runtime/runtime';
 
@@ -10,15 +10,9 @@ form.addEventListener("submit", (e) => {
   const user1 = document.getElementById("user1");
   const user2 = document.getElementById("user2");
 
-  let members = [{
-    nickname: user1.value,
-    winCount: 0,
-  }, {
-    nickname: user2.value,
-    winCount: 0,
-  }];
+  let inputNicknames = [user1.value, user2.value];
 
-
-  exeMatches(members);
-
+  exeSearching(inputNicknames).then(members => {
+    renderingHeadtohead(members);
+  });
 });
