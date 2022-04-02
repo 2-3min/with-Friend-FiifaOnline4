@@ -4,7 +4,6 @@ const renderingHeadtohead = members => {
   const imagePath = require('../../img/fLogo.PNG');
 
   const root = document.getElementById('root');
-  console.log(members);
   let template = `
   <div class="flex flex-col">
     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -66,10 +65,8 @@ const renderingHeadtohead = members => {
   root.innerHTML = template;
 }
 
-const rederingHistory = (members, matches) => {
-  matches.foreach(match => {
-
-  });
+const rederingHistory = (matches) => {
+  
 }
 
 const renderingSearchForm = () => {
